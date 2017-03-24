@@ -17,6 +17,7 @@
         android:ems="10"
         android:hint="Nota Presentación"
         android:inputType="number"
+        android:maxLength="2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,8 +30,9 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="Ponderacion"
+        android:hint="Ponderacion (%)"
         android:inputType="number"
+        android:maxLength="2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/prese"
         app:layout_constraintRight_toRightOf="@+id/prese"

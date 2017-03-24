@@ -3,6 +3,7 @@ package cl.ismaelweb.examenes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -42,15 +43,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void calcula(View view) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         double presed = Double.parseDouble(prese.getText().toString());
         double pondd = Double.parseDouble(pond.getText().toString());
-        double prepond = presed * (pondd/100);
-        double ex = (40 - prepond)/((100-pondd)/100);
-        if(ex<10) salida.setText("Si la asistencia no es obligatoria, no es necesario presentarte :) necesitas menos de un 1.0");
-        else if(ex>70) salida.setText("\"Houston, Tenemos un Problema\" necesitas mas de un 70 para aprobar, algo imposible por el momento :/");
-        else salida.setText(String.format("Necesitaras obtener un %s para aprobar",round(ex/10,1)));
+        if(presed>70|presed<10) salida.setText("Solo notas de 1.0 a 7.0");
+        else {
+            double prepond = presed * (pondd / 100);
+            double ex = (40 - prepond) / ((100 - pondd) / 100);
+            if (ex < 10)
+                salida.setText("Si la asistencia no es obligatoria, no es necesario presentarte :) necesitas menos de un 1.0");
+            else if (ex > 70)
+                salida.setText("\"Houston, Tenemos un Problema\" necesitas mas de un 70 para aprobar, algo imposible por el momento :/");
+            else
+                salida.setText(String.format("Necesitaras obtener un %s para aprobar", round(ex / 10, 1)));
+        }
         if(mInterstitialAd.isLoaded()) mInterstitialAd.show();
-        else salida.setText(salida.getText().toString()+" no cargo");
     }
 
     private static double round (double value, int precision) {
